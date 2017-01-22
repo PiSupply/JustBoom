@@ -1,6 +1,6 @@
 # JustBoom
 ## ALSA file for Surround Systems
-JustBoomDigi.conf enables passtrhough DTS for surround systems. Needs to be saved under /usr/share/alsa/cards
+JustBoomDigi.conf enables passthrough DTS for surround systems. Needs to be saved under /usr/share/alsa/cards
 
 ## Rotary encoder volume control
 jb-rotary enables control of volume level and mute/unmute function. Default settings for the script are:
