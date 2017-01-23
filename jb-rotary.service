@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts JustBoom Rotary Volume Control
+Requires=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/opt/justboom/jb-rotary.py
+WorkingDirectory=/opt/justboom/
+
+[Install]
+WantedBy=multi-user.target
