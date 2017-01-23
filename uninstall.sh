@@ -13,8 +13,8 @@ else
    systemctl stop jb-rotary.service
    systemctl disable /etc/systemd/jb-rotary.service
 
-   rm /opt/piswitch/jb-rotary.py 
-   rm /opt/piswitch -d
+   rm /opt/justboom/jb-rotary.py 
+   rm /opt/justboom -d
    rm /etc/systemd/system/jb-rotary.service
 
    whiptail --title "Uninstall complete" --msgbox "JustBoom Rotary Volume Control uninstall complete. You are safe to remove the folder JustBoom." 8 78
