@@ -3,7 +3,15 @@
 JustBoomDigi.conf enables passthrough DTS for surround systems. Needs to be saved under /usr/share/alsa/cards
 
 ## Rotary encoder volume control
-jb-rotary enables control of volume level and mute/unmute function. Default settings for the script are:
+jb-rotary enables control of volume level via the rotary encoder and mute/unmute function via its push button.
+###Installation
+1. Login via SSH or via the console.
+2. Run the following command and the JustBoom rotary and push button code will be configured and installed: 
+```bash
+curl -sSL https://pisupp.ly/jb-rotarycode | sudo bash
+```
+###Usage
+The default settings for the script are:
 * Start Volume = 0
 * Volume increment/decrement steps = 1
 * Rotary pins = 16,18 (Board notation)
