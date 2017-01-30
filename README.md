@@ -55,3 +55,7 @@ and remove the following line from /boot/cmdline.txt
 console=serial0,115200
 ```
 reboot the system
+
+## LIRC lircd.conf
+This is the configuration file for the JustBoom IR Remote to be used in conjunction with LIRC.
+A tutorial that guides you through the whole installation of LIRC and the remote configuration can be found via [this link](https://www.justboom.co/tutorials/configure-justboom-ir-remote-lirc/).
