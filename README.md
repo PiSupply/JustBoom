@@ -70,3 +70,16 @@ If you are planning on installing the rotary encoder on the [JustBoom DAC HAT ch
 ## LIRC lircd.conf
 This is the configuration file for the JustBoom IR Remote to be used in conjunction with LIRC.
 A tutorial that guides you through the whole installation of LIRC and the remote configuration can be found via [this link](https://www.justboom.co/tutorials/configure-justboom-ir-remote-lirc/).
+
+## Chips, I2C and Pinout
+The pinout for the boards can be found on the [JustBoom website](https://www.justboom.co/technical-guides/boards-pinout/) or on [Pinout.xyz](https://pinout.xyz/boards#manufacturer=JustBoom)
+
+This list shows the various chips used and the I2C address where applicable:
+* Amp HAT - [TAS5756M](http://www.ti.com/product/TAS5756M) - 0x4D
+* DAC HAT - [PCM5122](http://www.ti.com/product/PCM5122) - 0x4D
+* Digi HAT - [WM8804G](http://www.alldatasheet.net/view.jsp?Searchword=WM8804G&sField=2) - 0x3B
+* Amp Zero - [TAS5756M](http://www.ti.com/product/TAS5756M) - 0x4D
+* DAC Zero - [PCM5121](http://www.ti.com/product/PCM5121) - 0x4D
+* Digi Zero - [WM8804G](http://www.alldatasheet.net/view.jsp?Searchword=WM8804G&sField=2) - 0x3B
+* Amp - [TPA3118D2](http://www.ti.com/product/TPA3118D2)
+* DAC - [PCM5102A](http://www.ti.com/product/PCM5102A)
