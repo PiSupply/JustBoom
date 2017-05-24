@@ -55,6 +55,7 @@ class Rotary:
 class EasyMixer:
 
     def __init__(self, start_vol, vol_inc, clk, dt, btn,):
+	cardId=0
         self.startvol = start_vol
         self.volinc = vol_inc
         self.isMute = False
@@ -62,7 +63,7 @@ class EasyMixer:
         self.dt = dt # Second rotary pin
         self.btn = btn # Button pin
 	for i in range(len(alsaaudio.cards())): # Finds the JustBoom card
-		if (alsaaudio.cards()[i]=='sndrpiboomberry' or alsaaudio.cards()[i]=='sndrpijustboom'):
+		if (alsaaudio.cards()[i]=='sndrpiboomberry' or alsaaudio.cards()[i]=='sndrpijustboomd'):
 			cardId=i
         self.mixer = alsaaudio.Mixer(control='Digital', cardindex=cardId)
         self.rotary = Rotary(self.clk, self.dt, self.btn, self.rotarychange, self.buttonpressed)
