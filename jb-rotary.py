@@ -61,7 +61,10 @@ class EasyMixer:
         self.clk = clk # First rotary pin
         self.dt = dt # Second rotary pin
         self.btn = btn # Button pin
-        self.mixer = alsaaudio.Mixer('Digital')
+	for i in range(len(alsaaudio.cards())): # Finds the JustBoom card
+		if (alsaaudio.cards()[i]=='sndrpiboomberry' or alsaaudio.cards()[i]=='sndrpijustboom'):
+			cardId=i
+        self.mixer = alsaaudio.Mixer(control='Digital', cardindex=cardId)
         self.rotary = Rotary(self.clk, self.dt, self.btn, self.rotarychange, self.buttonpressed)
 
     def getmute(self):

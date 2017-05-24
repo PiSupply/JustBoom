@@ -9,7 +9,9 @@ fi
 if [ ! $? = 0 ]; then
    exit 1
 else
-   sudo apt-get install git whiptail #Installs packages which might be missing
+   apt-get install git whiptail #Installs packages which might be missing
+   apt-get install python-alsaaudio
+   apt-get install python-rpi.gpio
 
    JustBoomDir="JustBoom"
    if [ -d "$JustBoomDir" ]; then

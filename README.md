@@ -43,7 +43,7 @@ sudo systemctl disable serial-getty@ttyAMA0.service
 ```
 reboot the system.
 
-### Disable the UART on Raspberry Pi 3B
+### Disable the UART on Raspberry Pi 3B and Raspberry Pi Zero W
 on the command line execute these two commands:
 ``` bash
 sudo systemctl stop serial-getty@ttyS0.service
