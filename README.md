@@ -4,13 +4,13 @@ JustBoomDigi.conf enables passthrough DTS for surround systems. Needs to be save
 
 ## Rotary encoder volume control
 jb-rotary enables control of volume level via the rotary encoder and mute/unmute function via its push button.
-###Installation
+### Installation
 1. Login via SSH or via the console.
 2. Run the following command and the JustBoom rotary and push button code will be configured and installed: 
 ```bash
 curl -sSL https://pisupp.ly/jb-rotarycode | sudo bash
 ```
-###Usage
+### Usage
 The default settings for the script are:
 * Start Volume = 0
 * Volume increment/decrement steps = 1
@@ -66,6 +66,8 @@ Button one pin    -> pin 10
 Button other pin  -> GND (pin 9)
 ```
 If you are planning on installing the rotary encoder on the [JustBoom DAC HAT check the FAQ](https://www.justboom.co/faqs/#FAQ-6) on the website for more information.
+
+Note that not all rotary encoders will work with the script provided here. You can [get one of ours](https://www.pi-supply.com/product/rotary-encoder-push-switch/) or find a similar one.
 
 ## LIRC lircd.conf
 This is the configuration file for the JustBoom IR Remote to be used in conjunction with LIRC.
