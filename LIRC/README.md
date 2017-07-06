@@ -52,5 +52,8 @@ justboom-ir-remote-lircd.png
 
 reboot the OS
 
-
+## piCorePlayer
+These are configuration files for piCorePlayer
+[Squeezelire IR client](https://raw.githubusercontent.com/ralph-irving/tcz-lirc/master/lircd-justboomIR)
+[Jivelite Keyboard Emulation](https://raw.githubusercontent.com/ralph-irving/tcz-lirc/master/lircd-jivelite-justboomIR)
 
