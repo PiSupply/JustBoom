@@ -1,3 +1,4 @@
+![Alt text](https://user-images.githubusercontent.com/16068311/30544970-24597e94-9c80-11e7-93d3-29cde33c66c0.png?raw=true "Optional Title")
 # JustBoom
 ## ALSA file for Surround Systems
 JustBoomDigi.conf enables passthrough DTS for surround systems. Needs to be saved under /usr/share/alsa/cards
