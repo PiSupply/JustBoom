@@ -1,8 +1,5 @@
 ![Alt text](https://user-images.githubusercontent.com/16068311/30544970-24597e94-9c80-11e7-93d3-29cde33c66c0.png?raw=true "Optional Title")
 # JustBoom
-## ALSA file for Surround Systems
-JustBoomDigi.conf enables passthrough DTS for surround systems. Needs to be saved under /usr/share/alsa/cards
-
 ## Rotary encoder volume control
 jb-rotary enables control of volume level via the rotary encoder and mute/unmute function via its push button.
 ### Installation
@@ -20,12 +17,13 @@ The default settings for the script are:
 
 Script usage:
 ```
-Usage:  jb_rotary [-sirbv]
+Usage:  jb_rotary [-sirtbv]
         jb_rotary {-h|--help}         Script usage information
 
         -s --startvol    start volume level
         -i --volinc      volume increments/decrements
         -r --rotary      rotary encoder pins
+        -t --type        rotary encoder type ['standard', 'keyes']
         -b --button      button pin
 ```
 Example:
@@ -33,6 +31,7 @@ Example:
 ```
 python jb-rotary -s 20 -i 5       Changes the starting volume and step increments
 python jb-rotary -r 19,21 -b 15   Remaps the rotary and the button pins
+python jb-rotary -t keyes         Configure the rotary encoder as Keyes
 ```
 Note that the default setting for the button requires that you disable the onboard UART. This is mostly required when using the rotary encoder with the JustBoom Amp HAT via the P2 connector. [Check our main site JustBoom.co for the full pinout](https://www.justboom.co/technical-guides/boards-pinout/).
 
@@ -56,7 +55,8 @@ console=serial0,115200
 ```
 reboot the system
 
-### Wiring
+### Wiring for the rotary encoders
+#### Standard
 Both the rotary pins and the button are configured to pull down. For example in the default configuration the pins will have to be connected as follows:
 ```
 Rotary Left pin   -> pin 16
@@ -66,13 +66,25 @@ Rotary Right pin  -> pin 18
 Button one pin    -> pin 10
 Button other pin  -> GND (pin 9)
 ```
-If you are planning on installing the rotary encoder on the [JustBoom DAC HAT check the FAQ](https://www.justboom.co/faqs/#FAQ-6) on the website for more information.
+#### Keyes
+The rotary pins are configured to pull up and the button is configured to pull down. For example in the default configuration the pins will have to be connected as follows:
+```
+Rotary CLK        -> pin 16
+Rotary DT         -> pin 18
+Rotary SW         -> pin 10
+Rotary +          -> 3V3 (pin 1)
+Rotary GND        -> GND (pin 14)
+```
+You can find the [assembly steps for the standard rotary encoder](https://www.justboom.co/tutorials/add-rotary-encoder-justboom-boards/) on our website. You can find the [standard rotary encoder](https://www.pi-supply.com/product/rotary-encoder-push-switch/)on our site.
 
-Note that not all rotary encoders will work with the script provided here. You can [get one of ours](https://www.pi-supply.com/product/rotary-encoder-push-switch/) or find a similar one.
+If you are planning on installing the rotary encoder on the [JustBoom DAC HAT check the FAQ](https://www.justboom.co/faqs/#FAQ-6) on the website for additional details.
 
 ## LIRC lircd.conf
 This is the configuration file for the JustBoom IR Remote to be used in conjunction with LIRC.
 A tutorial that guides you through the whole installation of LIRC and the remote configuration can be found via [this link](https://www.justboom.co/tutorials/configure-justboom-ir-remote-lirc/).
+
+## ALSA file for Surround Systems
+JustBoomDigi.conf enables passthrough DTS for surround systems. The file needs to be saved under /usr/share/alsa/cards
 
 ## Chips, I2C and Pinout
 The pinout for the boards can be found on the [JustBoom website](https://www.justboom.co/technical-guides/boards-pinout/) or on [Pinout.xyz](https://pinout.xyz/boards#manufacturer=JustBoom)

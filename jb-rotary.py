@@ -8,22 +8,30 @@ from time import sleep
 import getopt
 import sys
 
+ROTARY_TYPES = ["standard", "keyes"]
+
 class Rotary:
     CLOCKWISE = 0
     ANTICLOCKWISE = 1
 
     def __init__(self, clockPin, dataPin, buttonPin,
-                 rotaryCallback, buttonCallback):
+                 rotaryCallback, buttonCallback, rotaryType):
         # persist values
         self.clockPin = clockPin
         self.dataPin = dataPin
         self.buttonPin = buttonPin
         self.rotaryCallback = rotaryCallback
         self.buttonCallback = buttonCallback
+        self.rotaryType = rotaryType
 
         # setup pins
-        GPIO.setup(clockPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # All pins are pull up because both
-        GPIO.setup(dataPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # the encoder and the button
+        if self.rotaryType == "standard":
+            GPIO.setup(clockPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # All pins are pull up because both
+            GPIO.setup(dataPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # the encoder and the button
+        elif self.rotaryType == "keyes":
+            GPIO.setup(clockPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # All pins are pull up because both
+            GPIO.setup(dataPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # the encoder and the button
+
         GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # will be connected to Ground
 
     def start(self):
@@ -53,20 +61,30 @@ class Rotary:
             self.buttonCallback()
 
 class EasyMixer:
+    def __init__(self, start_vol, vol_inc, clk, dt, btn, rot_type):
+        cardId = 0
 
-    def __init__(self, start_vol, vol_inc, clk, dt, btn,):
-	cardId=0
         self.startvol = start_vol
         self.volinc = vol_inc
         self.isMute = False
         self.clk = clk # First rotary pin
         self.dt = dt # Second rotary pin
         self.btn = btn # Button pin
-	for i in range(len(alsaaudio.cards())): # Finds the JustBoom card
-		if (alsaaudio.cards()[i]=='sndrpiboomberry' or alsaaudio.cards()[i]=='sndrpijustboomd'):
-			cardId=i
-        self.mixer = alsaaudio.Mixer(control='Digital', cardindex=cardId)
-        self.rotary = Rotary(self.clk, self.dt, self.btn, self.rotarychange, self.buttonpressed)
+
+        # Is the rotary encoder keyes like i.e. pull down or standard i.e. pull up
+        if rot_type in ROTARY_TYPES:
+            self.rot_type = rot_type
+            print("Configuring rotary encoder as ", self.rot_type)
+        else:
+            print(rot_type, " is not a valid rotary encoder type")
+            exit()
+
+        # Finds the JustBoom card
+        for i in range(len(alsaaudio.cards())):
+            if (alsaaudio.cards()[i]=='sndrpiboomberry' or alsaaudio.cards()[i]=='sndrpijustboomd'):
+                cardId=i
+            self.mixer = alsaaudio.Mixer(control='Digital', cardindex=cardId)
+            self.rotary = Rotary(self.clk, self.dt, self.btn, self.rotarychange, self.buttonpressed, self.rot_type)
 
     def getmute(self):
         self.isMute = self.mixer.getmute()[0]
@@ -95,16 +113,16 @@ class EasyMixer:
                 self.upvolume() # Increase the volume
             else:
                 self.downvolume() # Decrease the volume
-            print "Volume: " + str(self.getvolume())
+            print("Volume: " + str(self.getvolume()))
 
     def buttonpressed(self):
         if (self.getmute()):  # Is the audio muted?
             self.setvolume(self.getvolume())  # Applies the last known value of volume (before entering mute)
             self.setmute(0)  # Unmute the sound
-            print "Unmuted"
+            print("Unmuted")
         else:
             self.setmute(1)  # Mute the audio
-            print "Muted"
+            print("Muted")
 
     def start(self):
         self.mixer.setvolume(self.startvol) # Set mixer volume to start volume
@@ -114,13 +132,14 @@ class EasyMixer:
         self.rotary.stop()
 
 def usage():
-    print 'Usage: \tjb_rotary [-sirbv]\n' + \
+    print('Usage: \tjb_rotary [-sirtbv]\n' + \
           '\tjb_rotary {-h|--help}         Script usage information\n' +\
           '\n' +\
           '\t-s --startvol    start volume level\n' +\
           '\t-i --volinc      volume increments/decrements\n' +\
-          '\t-r --rotary      rotary encoder pins\n' +\
-          '\t-b --button      button pin'
+          '\t-r --rotary      rotary encoder pins\n' + \
+          '\t-t --type        rotary encoder type ' + str(ROTARY_TYPES) + '\n' + \
+          '\t-b --button      button pin')
 
 # main
 
@@ -129,10 +148,11 @@ start_volume = 0 # Starting volume
 volume_increments = 1 # Step for volume increments
 rotary_pins = [16,18] # Rotary encoder pin
 button_pin = 10  # Button pin
+rotary_type = "standard"
 
 # Script arguments
 try:
-    options, remainder  = getopt.getopt(sys.argv[1:], "h:s:i:r:b:", ['help', 'startvol', 'volinc', 'rotary', 'button',])
+    options, remainder  = getopt.getopt(sys.argv[1:], "h:s:i:r:b:t:", ['help', 'startvol=', 'volinc=', 'rotary=', 'button=', 'type='])
 except getopt.GetoptError as err:
     print str(err)
     usage()
@@ -147,6 +167,8 @@ for opt, arg in options:
         rotary_pins = arg.split(',')
     elif opt in ('-b', '--button'):
         button_pin = int(arg)
+    elif opt in ('-t', '--type'):
+        rotary_type = arg
     elif opt in ('-h', '--help'):
         usage()
         sys.exit()
@@ -155,7 +177,7 @@ for opt, arg in options:
 
 GPIO.setmode(GPIO.BOARD) # Set the GPIO with pin numbering
 
-easy_mixer = EasyMixer(start_volume,volume_increments, int(rotary_pins[0]), int(rotary_pins[1]), button_pin) # New mixer instantiation
+easy_mixer = EasyMixer(start_volume,volume_increments, int(rotary_pins[0]), int(rotary_pins[1]), button_pin, rotary_type) # New mixer instantiation
 
 easy_mixer.start() # Start mixer and rotary encoder
 
