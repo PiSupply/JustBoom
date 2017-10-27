@@ -33,7 +33,64 @@ python jb-rotary -s 20 -i 5       Changes the starting volume and step increment
 python jb-rotary -r 19,21 -b 15   Remaps the rotary and the button pins
 python jb-rotary -t keyes         Configure the rotary encoder as Keyes
 ```
-Note that the default setting for the button requires that you disable the onboard UART. This is mostly required when using the rotary encoder with the JustBoom Amp HAT via the P2 connector. [Check our main site JustBoom.co for the full pinout](https://www.justboom.co/technical-guides/boards-pinout/).
+*Note that the default setting for the button requires that you disable the onboard UART. This is mostly required when using the rotary encoder with the JustBoom Amp HAT via the P2 connector. [Check our main site JustBoom.co for the full pinout](https://www.justboom.co/technical-guides/boards-pinout/).*
+
+### Digi boards
+Since the Digi boards haven't got a volume control we need to create one for the script to work.
+``` bash
+sudo nano /etc/asound.conf
+```
+Add the following contents:
+```
+pcm.justboom-softvol {
+    type softvol
+    slave.pcm "plughw:0"
+    control.name "SoftMaster"
+    control.card 0
+}
+
+pcm.!default {
+    type             plug
+    slave.pcm       "justboom-softvol"
+}
+```
+Run this command which will test and CREATE the mixer control:
+``` bash
+speaker-test -D justboom-softvol -c 2 -twav -l 1
+```
+*Note that due to the fact that SoftMaster isn't a real control the mute doesn't behave as for the Amp and DAC cards. In the case of the Digi the volume will be set to zero on mute and will NOT go back to where it was before after pressing the button once again.*
+
+If you are using MPD you should change the configuration to the following one.
+``` bash
+sudo nano /etc/mpd.conf
+```
+```
+follow_outside_symlinks         "yes"
+follow_inside_symlinks          "yes"
+music_directory                 "/var/lib/mpd/music"
+playlist_directory              "/var/lib/mpd/playlists"
+db_file                         "/var/lib/mpd/tag_cache"
+log_file                        "/var/log/mpd/mpd.log"
+pid_file                        "/run/mpd/pid"
+state_file                      "/var/lib/mpd/state"
+sticker_file                    "/var/lib/mpd/sticker.sql"
+
+user                            "mpd"
+
+bind_to_address         "localhost"
+
+input {
+        plugin "curl"
+}
+
+audio_output {
+        type            "alsa"
+        name            "JustBoom"
+        device          "justboom-softvol"
+        mixer_type      "software"
+        mixer_device    "SoftMaster"
+}
+```
 
 ### Disable the UART on Raspberry Pi Zero, A+, B+ and 2B
 on the command line execute these two commands:
