@@ -66,6 +66,7 @@ class EasyMixer:
 
         self.startvol = start_vol
         self.volinc = vol_inc
+        self.hasMute = True # Are we using the Digital control or the SoftMaster
         self.isMute = False
         self.clk = clk # First rotary pin
         self.dt = dt # Second rotary pin
@@ -83,7 +84,18 @@ class EasyMixer:
         for i in range(len(alsaaudio.cards())):
             if (alsaaudio.cards()[i]=='sndrpiboomberry' or alsaaudio.cards()[i]=='sndrpijustboomd'):
                 cardId=i
-            self.mixer = alsaaudio.Mixer(control='Digital', cardindex=cardId)
+                if 'Digital' in alsaaudio.mixers():
+                    self.mixer = alsaaudio.Mixer(control='Digital', cardindex=cardId)
+                    self.hasMute = True
+                elif 'SoftMaster' in alsaaudio.mixers():
+                    self.mixer = alsaaudio.Mixer(control='SoftMaster', cardindex=cardId)
+                    self.hasMute = False
+                else:
+                    print("There are no suitable mixers")
+                    exit()
+            else:
+                print("There are no suitable cards")
+                exit()
             self.rotary = Rotary(self.clk, self.dt, self.btn, self.rotarychange, self.buttonpressed, self.rot_type)
 
     def getmute(self):
@@ -108,7 +120,14 @@ class EasyMixer:
             self.setvolume(self.getvolume() - self.volinc)
 
     def rotarychange(self, direction):
-        if not self.getmute():  # Is the audio muted?
+        if self.hasMute:
+            if not self.getmute():  # Is the audio muted?
+                if direction:
+                    self.upvolume() # Increase the volume
+                else:
+                    self.downvolume() # Decrease the volume
+                print("Volume: " + str(self.getvolume()))
+        else:
             if direction:
                 self.upvolume() # Increase the volume
             else:
@@ -116,13 +135,17 @@ class EasyMixer:
             print("Volume: " + str(self.getvolume()))
 
     def buttonpressed(self):
-        if (self.getmute()):  # Is the audio muted?
-            self.setvolume(self.getvolume())  # Applies the last known value of volume (before entering mute)
-            self.setmute(0)  # Unmute the sound
-            print("Unmuted")
+        if self.hasMute:
+            if (self.getmute()):  # Is the audio muted?
+                self.setvolume(self.getvolume())  # Applies the last known value of volume (before entering mute)
+                self.setmute(0)  # Unmute the sound
+                print("Unmuted")
+            else:
+                self.setmute(1)  # Mute the audio
+                print("Muted")
         else:
-            self.setmute(1)  # Mute the audio
-            print("Muted")
+            self.setvolume(0)   # Since the control hasn't got a mute we simply set the volume to 0
+            print("Volume: " + str(self.getvolume()))
 
     def start(self):
         self.mixer.setvolume(self.startvol) # Set mixer volume to start volume
