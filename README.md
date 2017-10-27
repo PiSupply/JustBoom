@@ -1,4 +1,4 @@
-![Alt text](https://user-images.githubusercontent.com/16068311/30544970-24597e94-9c80-11e7-93d3-29cde33c66c0.png?raw=true "Optional Title")
+![Alt text](https://user-images.githubusercontent.com/16068311/30544970-24597e94-9c80-11e7-93d3-29cde33c66c0.png?raw=true "JustBoom Logo")
 # JustBoom
 ## Rotary encoder volume control
 jb-rotary enables control of volume level via the rotary encoder and mute/unmute function via its push button.
