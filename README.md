@@ -140,6 +140,24 @@ If you are planning on installing the rotary encoder on the [JustBoom DAC HAT ch
 This is the configuration file for the JustBoom IR Remote to be used in conjunction with LIRC.
 A tutorial that guides you through the whole installation of LIRC and the remote configuration can be found via [this link](https://www.justboom.co/tutorials/configure-justboom-ir-remote-lirc/).
 
+## Smart Remote HEX codes
+The smart remote appears to the OS as a normal HID device. If the distribution you are using already makes use of such devices like for the Kodi ones than the remote is entirely plug and play. Should you want to integrate it in your applications or create a plugin for a specific OS these are the hex codes for the various buttons:
+```
+Power   0x30
+Home    0x223
+Mute    0xE2
+Up      0x42
+Left    0x44
+OK      0x41
+Right   0x45
+Down    0x43
+Menu    0x40
+Back    0x224
+Vol-    0xEA
+Vol+    0xE9
+```
+The mouse mode is activated by pressing the button in between Vol- and Vol+. The pointer is controlled by the built in gyroscope.
+
 ## ALSA file for Surround Systems
 JustBoomDigi.conf enables passthrough DTS for surround systems. The file needs to be saved under /usr/share/alsa/cards
 
