@@ -71,6 +71,7 @@ class EasyMixer:
         self.clk = clk # First rotary pin
         self.dt = dt # Second rotary pin
         self.btn = btn # Button pin
+        self.rotary = None
 
         # Is the rotary encoder keyes like i.e. pull down or standard i.e. pull up
         if rot_type in ROTARY_TYPES:
@@ -82,21 +83,22 @@ class EasyMixer:
 
         # Finds the JustBoom card
         for i in range(len(alsaaudio.cards())):
+            print(alsaaudio.cards()[i])
             if (alsaaudio.cards()[i]=='sndrpiboomberry' or alsaaudio.cards()[i]=='sndrpijustboomd'):
                 cardId=i
-                if 'Digital' in alsaaudio.mixers():
+                if 'Digital' in alsaaudio.mixers(cardId):
                     self.mixer = alsaaudio.Mixer(control='Digital', cardindex=cardId)
                     self.hasMute = True
-                elif 'SoftMaster' in alsaaudio.mixers():
+                elif 'SoftMaster' in alsaaudio.mixers(cardId):
                     self.mixer = alsaaudio.Mixer(control='SoftMaster', cardindex=cardId)
                     self.hasMute = False
                 else:
                     print("There are no suitable mixers")
                     exit()
-            else:
-                print("There are no suitable cards")
-                exit()
-            self.rotary = Rotary(self.clk, self.dt, self.btn, self.rotarychange, self.buttonpressed, self.rot_type)
+                self.rotary = Rotary(self.clk, self.dt, self.btn, self.rotarychange, self.buttonpressed, self.rot_type)
+        if self.rotary == None:
+            print("There are no suitable cards")
+            exit()
 
     def getmute(self):
         self.isMute = self.mixer.getmute()[0]

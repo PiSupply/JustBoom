@@ -6,6 +6,3 @@ Requires=local-fs.target
 Type=simple
 ExecStart=/opt/justboom/jb-rotary.py
 WorkingDirectory=/opt/justboom/
-
-[Install]
-WantedBy=multi-user.target

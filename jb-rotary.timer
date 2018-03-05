@@ -1,0 +1,8 @@
+[Unit]
+Desciption=Delay jb-rotary till ALSA available
+
+[Timer]
+OnStartupSec=20
+
+[Install]
+WantedBy=multi-user.target
