@@ -23,9 +23,12 @@ else
     git clone https://github.com/PiSupply/JustBoom.git
     mkdir /opt/justboom
     cp $JustBoomDir/jb-rotary.py /opt/justboom
-    cp $JustBoomDir/jb-rotary.service /etc/systemd/system
+    cp $JustBoomDir/jb-rotary.service /usr/lib/systemd/system
+    cp $JustBoomDir/jb-rotary.timer /usr/lib/systemd/system
 
-    systemctl enable /etc/systemd/system/jb-rotary.service
-    systemctl start jb-rotary.service
+    systemctl daemon-reload
+    systemctl disable jb-rotary.service
+    systemctl enable jb-rotary.timer
+    systemctl start jb-rotary.timer
 whiptail --title "Installation complete" --msgbox "The JustBoom Rotary Volume Control installation complete. Please reboot your Raspberry Pi now." 8 78
 fi
