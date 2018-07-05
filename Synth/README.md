@@ -1,6 +1,6 @@
 # Resources for JustBoom Synth
 
-'''
+```
 # Relevant MIDI Software list:
 # http://tedfelix.com/linux/linux-midi.html
 
@@ -41,4 +41,4 @@ sudo apt-get install  librtaudio-dev  librtmidi-dev
 http://www.music.mcgill.ca/~gary/rtmidi/
 # compile program:
 g++ -Wall -D__LINUX_ALSA__ -o rtmidiin rtmidiin.cpp -lasound -lpthread -lrtmidi
-'''
+```
