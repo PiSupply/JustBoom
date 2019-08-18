@@ -4,7 +4,11 @@
 jb-rotary enables control of volume level via the rotary encoder and mute/unmute function via its push button.
 ### Installation
 1. Login via SSH or via the console.
-2. Run the following command and the JustBoom rotary and push button code will be configured and installed: 
+2. Update the list of available software packages:
+```
+sudo apt-get update
+```
+3. Run the following command and the JustBoom rotary and push button code will be configured and installed: 
 ```bash
 curl -sSL https://pisupp.ly/jb-rotarycode | sudo bash
 ```
@@ -29,9 +33,9 @@ Usage:  jb_rotary [-sirtbv]
 Example:
 
 ```
-python jb-rotary -s 20 -i 5       Changes the starting volume and step increments
-python jb-rotary -r 19,21 -b 15   Remaps the rotary and the button pins
-python jb-rotary -t keyes         Configure the rotary encoder as Keyes
+sudo python jb-rotary.py -s 20 -i 5       Changes the starting volume and step increments
+sudo python jb-rotary.py -r 19,21 -b 15   Remaps the rotary and the button pins
+sudo python jb-rotary.py -t keyes         Configure the rotary encoder as Keyes
 ```
 *Note that the default setting for the button requires that you disable the onboard UART. This is mostly required when using the rotary encoder with the JustBoom Amp HAT via the P2 connector. [Check our main site JustBoom.co for the full pinout](https://www.justboom.co/technical-guides/boards-pinout/).*
 
