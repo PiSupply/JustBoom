@@ -22,10 +22,9 @@ else
 
     git clone https://github.com/PiSupply/JustBoom.git
     mkdir /opt/justboom
-    mkdir -p /usr/lib/systemd/system
     cp $JustBoomDir/jb-rotary.py /opt/justboom
-    cp $JustBoomDir/jb-rotary.service /usr/lib/systemd/system
-    cp $JustBoomDir/jb-rotary.timer /usr/lib/systemd/system
+    cp $JustBoomDir/jb-rotary.service /lib/systemd/system
+    cp $JustBoomDir/jb-rotary.timer /lib/systemd/system
 
     systemctl daemon-reload
     systemctl disable jb-rotary.service
