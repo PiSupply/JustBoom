@@ -4,5 +4,5 @@ Requires=local-fs.target
 
 [Service]
 Type=simple
-ExecStart=/opt/justboom/jb-rotary.py
+ExecStart=/opt/justboom/jb-rotary.py -i 5
 WorkingDirectory=/opt/justboom/
