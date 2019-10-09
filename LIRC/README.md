@@ -46,9 +46,9 @@ dtparam=gpio_in_pin=25
 in My OSMC -> Remotes
 Browse and choose the folder in which you have saved the following two files 
 
-justboom-ir-remote-lircd.conf
+`justboom-ir-remote-lircd.conf`
 
-justboom-ir-remote-lircd.png
+`justboom-ir-remote-lircd.png`
 
 reboot the OS
 

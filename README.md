@@ -110,7 +110,7 @@ on the command line execute these two commands:
 sudo systemctl stop serial-getty@ttyS0.service
 sudo systemctl disable serial-getty@ttyS0.service
 ```
-and remove the following line from /boot/cmdline.txt
+and remove the following line from `/boot/cmdline.txt`
 ```
 console=serial0,115200
 ```
@@ -160,10 +160,10 @@ Back    0x224
 Vol-    0xEA
 Vol+    0xE9
 ```
-The mouse mode is activated by pressing the button in between Vol- and Vol+. The pointer is controlled by the built in gyroscope.
+The mouse mode is activated by pressing the button in between `Vol-` and `Vol+`. The pointer is controlled by the built in gyroscope.
 
 ## ALSA file for Surround Systems
-JustBoomDigi.conf enables passthrough DTS for surround systems. The file needs to be saved under /usr/share/alsa/cards
+`JustBoomDigi.conf` enables passthrough DTS for surround systems. The file needs to be saved under `/usr/share/alsa/cards`
 
 ## Chips, I2C and Pinout
 The pinout for the boards can be found on the [JustBoom website](https://www.justboom.co/technical-guides/boards-pinout/) or on [Pinout.xyz](https://pinout.xyz/boards#manufacturer=JustBoom)

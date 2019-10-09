@@ -18,7 +18,7 @@ Available commands:
 ```
 justboom.local/api/v1/commands/?cmd=play&N=2
 ```
-Where N is optional and is the ordinal number of the track in the queue you wish to start to play from. The above call will play the third track in the queue.
+Where `N` is optional and is the ordinal number of the track in the queue you wish to start to play from. The above call will play the third track in the queue.
 
 **Toggle between play and pause**
 ```
@@ -44,7 +44,7 @@ justboom.local/api/v1/commands/?cmd=next
 ```
 justboom.local/api/v1/commands/?cmd=volume&volume=80
 ```
-Where volume= can be: 0-100, mute, unmute, plus, minus (plus and minus will increase/decrease as per parameter one click volume steps)
+Where `volume=` can be: 0-100, mute, unmute, plus, minus (plus and minus will increase/decrease as per parameter one click volume steps)
 
 ## Music Library
 Get the current state of the player
@@ -67,16 +67,16 @@ justboom.local/api/v1/listplaylists
 ```
 justboom.local/api/v1/commands/?cmd=playplaylist&name=Rock
 ```
-Where name is the name of the playlist to play
+Where `name` is the name of the playlist to play
 
 **Repeat a track**
 ```
 justboom.local/api/v1/commands/?cmd=repeat&key
 ```
-Where key is true or false
+Where `key` is true or false
 
 **Random** Makes the order in which tracks are played random
 ```
 justboom.local/api/v1/commands/?cmd=random&key
 ```
-Where key is true or false
+Where `key` is true or false
