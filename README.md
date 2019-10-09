@@ -138,7 +138,7 @@ Rotary GND        -> GND (pin 14)
 ```
 You can find the [assembly steps for the standard rotary encoder](https://www.justboom.co/tutorials/add-rotary-encoder-justboom-boards/) on our website. You can find the [standard rotary encoder](https://www.pi-supply.com/product/rotary-encoder-push-switch/) on our site.
 
-If you are planning on installing the rotary encoder on the [JustBoom DAC HAT check the FAQ](https://www.justboom.co/faqs/#FAQ-6) on the website for additional details.
+If you are planning on installing the rotary encoder on the [JustBoom DAC HAT, check the FAQ](https://www.justboom.co/faqs/#FAQ-7) on the website for additional details.
 
 ## LIRC lircd.conf
 This is the configuration file for the JustBoom IR Remote to be used in conjunction with LIRC.
