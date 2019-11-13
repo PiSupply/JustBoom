@@ -146,21 +146,56 @@ A tutorial that guides you through the whole installation of LIRC and the remote
 
 ## Smart Remote HEX codes
 The smart remote appears to the OS as a normal HID device. If the distribution you are using already makes use of such devices like for the Kodi ones than the remote is entirely plug and play. Should you want to integrate it in your applications or create a plugin for a specific OS these are the hex codes for the various buttons:
+
 ```
-Power   0x30
-Home    0x223
-Mute    0xE2
-Up      0x42
-Left    0x44
-OK      0x41
-Right   0x45
-Down    0x43
-Menu    0x40
-Back    0x224
-Vol-    0xEA
-Vol+    0xE9
+Function        Code    Keymap
+Power           0x30    KEY_POWER
+Home            0x223   KEY_HOMEPAGE
+Mute            0xE2    KEY_MUTE
+Up              0x42    KEY_UP
+Left            0x44    KEY_LEFT
+OK              0x41    KEY_SELECT
+Right           0x45    KEY_RIGHT
+Down            0x43    KEY_DOWN
+Menu            0x40    KEY_MENU
+Back            0x224   KEY_BACK
+Vol-            0xEA    KEY_VOLUMEDOWN
+Vol+            0xE9    KEY_VOLUMEUP
 ```
 The mouse mode is activated by pressing the button in between `Vol-` and `Vol+`. The pointer is controlled by the built in gyroscope.
+In this mode the OK button changes function and becomes a mouse left button.
+
+```
+Function        Code    Keymap
+OK              0x90001 BTN_LEFT
+X               <Range> REL_X
+Y               <Range> REL_Y
+```
+The remote will revert back to keyboard emulation by pressing one of the arrow buttons.
+
+### Kodi - OK and Menu buttons no longer work
+There are some issues with the OK and Menu buttons no longer working on Kodi based distros like LibreELEC. This is apparently caused by a [kernel problem](https://forum.libreelec.tv/thread/20122-mce-keyboard-mce-kbd-not-working-for-text-keys-after-upgrading-to-versions-9-1-0/?postID=125984#post125984) and can be fixed with the following workaround based on a [forum post in LibreELEC by HiassofT](https://forum.libreelec.tv/thread/10563-ok-button-doesn-t-work-on-h1-remote/).
+
+#### Automated fix
+Run the following script
+```bash
+curl -sSL https://pisupp.ly/smartremote_fix | sudo bash
+```
+
+#### Manual fix
+Create the following file
+```bash
+cat > /storage/.config/hwdb.d/70-local-keyboard.hwdbe << EOF
+evdev:input:b0003v2252p0120*
+ KEYBOARD_KEY_c0041=enter
+ KEYBOARD_KEY_c0040=c
+EOF
+```
+
+and run this command
+```bash
+udevadm hwdb --update && udevadm trigger -s input
+```
 
 ## ALSA file for Surround Systems
 `JustBoomDigi.conf` enables passthrough DTS for surround systems. The file needs to be saved under `/usr/share/alsa/cards`
