@@ -173,8 +173,8 @@ Y               <Range> REL_Y
 ```
 The remote will revert back to keyboard emulation by pressing one of the arrow buttons.
 
-### OK and Menu no longer work
-There are some issues with the OK and Menu buttons no longer working on Kodi based distros like LibreElec. This is apparently caused by a [kernel problem](https://forum.libreelec.tv/thread/20122-mce-keyboard-mce-kbd-not-working-for-text-keys-after-upgrading-to-versions-9-1-0/?postID=125984#post125984) and can be fixed with the following workaround based on a [forum post in LibreELEC by HiassofT](https://forum.libreelec.tv/thread/10563-ok-button-doesn-t-work-on-h1-remote/).
+### Kodi - OK and Menu buttons no longer work
+There are some issues with the OK and Menu buttons no longer working on Kodi based distros like LibreELEC. This is apparently caused by a [kernel problem](https://forum.libreelec.tv/thread/20122-mce-keyboard-mce-kbd-not-working-for-text-keys-after-upgrading-to-versions-9-1-0/?postID=125984#post125984) and can be fixed with the following workaround based on a [forum post in LibreELEC by HiassofT](https://forum.libreelec.tv/thread/10563-ok-button-doesn-t-work-on-h1-remote/).
 
 #### Automated fix
 Run the following script
