@@ -179,8 +179,9 @@ There are some issues with the OK and Menu buttons no longer working on Kodi bas
 #### Automated fix
 Run the following script
 ```bash
-curl -sSL https://pisupp.ly/smartremote_fix | sudo bash
+curl -sSL https://pisupp.ly/smartremotefix | bash
 ```
+then reboot the system
 
 #### Manual fix
 Create the following file
@@ -191,11 +192,11 @@ evdev:input:b0003v2252p0120*
  KEYBOARD_KEY_c0040=c
 EOF
 ```
-
 and run this command
 ```bash
 udevadm hwdb --update && udevadm trigger -s input
 ```
+finally reboot the system
 
 ## ALSA file for Surround Systems
 `JustBoomDigi.conf` enables passthrough DTS for surround systems. The file needs to be saved under `/usr/share/alsa/cards`
