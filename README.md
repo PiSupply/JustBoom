@@ -1,4 +1,4 @@
-![Alt text](https://user-images.githubusercontent.com/16068311/30544970-24597e94-9c80-11e7-93d3-29cde33c66c0.png?raw=true "JustBoom Logo")
+![Alt text](https://user-images.githubusercontent.com/1878314/73881011-7e819e80-4857-11ea-886f-25fa23f721ce.png)
 # JustBoom
 ## Rotary encoder volume control
 jb-rotary enables control of volume level via the rotary encoder and mute/unmute function via its push button.
@@ -8,7 +8,7 @@ jb-rotary enables control of volume level via the rotary encoder and mute/unmute
 ```
 sudo apt-get update
 ```
-3. Run the following command and the JustBoom rotary and push button code will be configured and installed: 
+3. Run the following command and the JustBoom rotary and push button code will be configured and installed:
 ```bash
 curl -sSL https://pisupp.ly/jb-rotarycode | sudo bash
 ```
