@@ -179,7 +179,7 @@ rotary_type = "standard"
 try:
     options, remainder  = getopt.getopt(sys.argv[1:], "h:s:i:r:b:t:", ['help', 'startvol=', 'volinc=', 'rotary=', 'button=', 'type='])
 except getopt.GetoptError as err:
-    print str(err)
+    print(str(err))
     usage()
     sys.exit(2)
 

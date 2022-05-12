@@ -9,10 +9,18 @@ fi
 if [ ! $? = 0 ]; then
     exit 1
 else
-    #Installs packages which might be missing
-    apt-get install git whiptail -y
-    apt-get install python-alsaaudio -y
-    apt-get install python-rpi.gpio -y
+    ver=$(python -c"import sys; print(sys.version_info.major)")
+    if [ $ver -eq 2 ]; then
+      apt-get install git whiptail -y
+      apt-get install python-alsaaudio -y
+      apt-get install python-rpi.gpio -y
+    elif [ $ver -eq 3 ]; then
+      apt-get install git whiptail -y
+      apt-get install python3-alsaaudio -y
+      apt-get install python3-rpi.gpio -y
+    else
+      exit 1
+    fi
 
     JustBoomDir="JustBoom"
     if [ -d "$JustBoomDir" ]; then
